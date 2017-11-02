@@ -1,0 +1,17 @@
+{
+  "name": "gtrans",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "safe-eval": "^0.3.0",
+    "configstore": "^2.0.0",
+    "express": "^4.16.2"
+  }
+}
