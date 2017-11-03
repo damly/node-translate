@@ -90,6 +90,7 @@ function translate(query, opts) {
                 var result = {
                     text: dst,
                     from: languages.getCodeByValue(langs, res.from),
+                    to: languages.getCodeByValue(langs, res.to),
                     raw: '',
                     tts: '',
                     engine: 'BaiduFree'

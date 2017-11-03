@@ -4,7 +4,7 @@ var MD5 = require('../util/md5');
 var languages = require('../util/languages');
 
 var host = 'http://api.fanyi.baidu.com/api/trans/vip/translate';
-var appid = '应用id';
+var appid = '应用APPID';
 var key = '应用秘钥';
 
 var langs = {
@@ -97,6 +97,7 @@ function translate(query, opts) {
                 var result = {
                     text: dst,
                     from: languages.getCodeByValue(langs, res.from),
+                    to: languages.getCodeByValue(langs, res.to),
                     raw: '',
                     tts: '',
                     engine: 'Baidu'

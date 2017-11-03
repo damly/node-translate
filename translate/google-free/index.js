@@ -287,6 +287,7 @@ function trans(key, text, opts) {
             var result = {
                 text: '',
                 from: '',
+                to: to,
                 raw: '',
                 tts: '',
                 engine: 'GoogleFree'

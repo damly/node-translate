@@ -4,7 +4,7 @@ var MD5 = require('../util/md5');
 var languages = require('../util/languages');
 
 var host = 'http://openapi.youdao.com/api';
-var appid = '应用id';
+var appid = '应用APPID';
 var key = '应用秘钥';
 
 var langs = {
@@ -73,11 +73,15 @@ function translate(query, opts) {
                     throw new Error('youdao return error code: '+res.errorCode);
                 }
 
-                var from = res.l.split('2')[0];
+                var ls = res.l.split('2');
+
+                var from = ls[0];
+                var to = ls[1];
 
                 var result = {
                     text: res.translation[0],
                     from: languages.getCodeByValue(langs, from),
+                    to: languages.getCodeByValue(langs, to),
                     raw: '',
                     tts: '',
                     engine: 'Youdao'
