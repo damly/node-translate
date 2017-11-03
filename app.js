@@ -12,10 +12,10 @@ app.get('/translate', function (req, res) {
     var engine = req.query.e || 'auto';
 
     translate(text, {from: from, to: to, engine: engine}).then(function (result) {
-        res.json(result);
+        res.json({code:200,data:result});
     }).catch(function (err) {
         console.error(err);
-        res.json({err: err});
+        res.json(err);
     });
 });
 
