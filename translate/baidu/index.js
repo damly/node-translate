@@ -4,8 +4,8 @@ var MD5 = require('../util/md5');
 var languages = require('../util/languages');
 
 var host = 'http://api.fanyi.baidu.com/api/trans/vip/translate';
-var appid = '应用ID';
-var key = '应用key';
+var appid = '应用id';
+var key = '应用秘钥';
 
 var langs = {
     'auto' : 'auto',	//自动检测
@@ -119,4 +119,19 @@ function translate(query, opts) {
     });
 }
 
+
+function isSupported(opts) {
+
+    opts = opts || {};
+
+    var flag = true;
+    [opts.from, opts.to].forEach(function (lang) {
+        if (lang && !languages.isSupported(langs, lang)) {
+            flag = false;
+        }
+    });
+    return flag;
+}
+
 module.exports = translate;
+module.exports.isSupported = isSupported;

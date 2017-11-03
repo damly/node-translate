@@ -112,4 +112,18 @@ function translate(query, opts) {
     });
 }
 
+function isSupported(opts) {
+
+    opts = opts || {};
+
+    var flag = true;
+    [opts.from, opts.to].forEach(function (lang) {
+        if (lang && !languages.isSupported(langs, lang)) {
+            flag = false;
+        }
+    });
+    return flag;
+}
+
 module.exports = translate;
+module.exports.isSupported = isSupported;

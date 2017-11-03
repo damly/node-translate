@@ -4,13 +4,13 @@ var googleFree = require('./google-free');
 var baiduFree = require('./baidu-free');
 
 var engine = {
-    'BAIDUFREE': baiduFree,
-    'GOOGLEFREE': googleFree,
-    'BAIDU': baidu,
+    'BAIDU': baiduFree,
+    'GOOGLE': googleFree,
+    'BAIDUA': baidu,
     'YOUDAO': youdao
 };
 
-function all(text, opts) {
+function useAllEngine(text, opts) {
     var ps = [];
     for (var key in engine) {
         ps.push(new Promise(function  (resolve,reject) {
@@ -19,7 +19,7 @@ function all(text, opts) {
             engine[key](text, opts0).then(function (value) {
                 resolve(value);
             }).catch(function (e) {
-                reject(e)
+                resolve([])
             })
         }));
     }
@@ -45,16 +45,33 @@ function all(text, opts) {
     });
 }
 
+function autoSelectEngine(text, opts) {
+
+    for (var key in engine) {
+        if(engine[key].isSupported(opts)) {
+            return engine[key](text, opts);
+        }
+    }
+
+    var e = new Error();
+    e.code = 400;
+    e.message = 'The engine \'' + opts.form +' to '+ opts.to + '\' is not supported';
+
+    return new Promise(function (resolve, reject) {
+        reject(e);
+    });
+}
+
 function translate(text, opts) {
-    var code = opts.engine || 'BaiduFree';
+    var code = opts.engine || 'BAIDU';
 
     var key = code.toUpperCase();
 
     if (key === 'ALL') {
-        return all(text, opts)
+        return useAllEngine(text, opts)
     }
     else if (key === 'AUTO') {
-        key = 'BAIDUFREE';
+        return autoSelectEngine(text, opts);
     }
 
     for (var a in engine) {

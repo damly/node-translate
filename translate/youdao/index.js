@@ -5,7 +5,7 @@ var languages = require('../util/languages');
 
 var host = 'http://openapi.youdao.com/api';
 var appid = '应用id';
-var key = '应用key';
+var key = '应用秘钥';
 
 var langs = {
     'auto': 'auto',
@@ -96,4 +96,18 @@ function translate(query, opts) {
     });
 }
 
+function isSupported(opts) {
+
+    opts = opts || {};
+
+    var flag = true;
+    [opts.from, opts.to].forEach(function (lang) {
+        if (lang && !languages.isSupported(langs, lang)) {
+            flag = false;
+        }
+    });
+    return flag;
+}
+
 module.exports = translate;
+module.exports.isSupported = isSupported;
